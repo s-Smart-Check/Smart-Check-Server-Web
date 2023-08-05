@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON 전송 예제</title>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h3>회원가입 테스트</h3>
+<form id="myJoinForm">
+  <label for="id">ID:</label>
+  <input type="text" id="id" name="id"><br><br>
+  <label for="password">비밀번호:</label>
+  <input type="password" id="password" name="password"><br><br>
+  <label for="name">이름:</label>
+  <input type="text" id="name" name="name"><br><br>
+  <input type="submit" value="전송">
+</form>
+<hr>
+<h3>로그인 테스트</h3>
+<form id="myLoginForm">
+  <label for="id2">ID:</label>
+  <input type="text" id="id2" name="id"><br><br>
+  <label for="password2">비밀번호:</label>
+  <input type="password" id="password2" name="password"><br><br>
+  <input type="submit" value="전송">
+</form>
+<script>
+  $(document).ready(function() {
+    $('#myJoinForm').submit(function(event) {
+      // 폼 전송 방지
+      event.preventDefault();
+      // 입력한 데이터 가져오기
+      var formData = {
+        'usrNum': $('#id').val(),
+        'usrPasswd': $('#password').val(),
+        'usrName': $('#name').val()
+      };
+      // 데이터를 JSON 형식으로 변환
+      var jsonData = JSON.stringify(formData);
+      // Spring 백엔드로 전송
+      $.ajax({
+        type: 'POST',
+        url: '/tempJoin',
+        data: jsonData,
+        contentType: 'application/json',
+        success: function(data) {
+          alert(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert(jqXHR.responseJSON.message);
+        }
+      });
+    });
+
+    $('#myLoginForm').submit(function(event) {
+      // 폼 전송 방지
+      event.preventDefault();
+      // 입력한 데이터 가져오기
+      var formData = {
+        'usrNum': $('#id2').val(),
+        'usrPasswd': $('#password2').val(),
+      };
+      // 데이터를 JSON 형식으로 변환
+      var jsonData = JSON.stringify(formData);
+      // Spring 백엔드로 전송
+      $.ajax({
+        type: 'POST',
+        url: '/tempLogin',
+        data: jsonData,
+        contentType: 'application/json',
+        success: function(data) {
+          alert("로그인성공");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert(jqXHR.responseJSON.message);
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

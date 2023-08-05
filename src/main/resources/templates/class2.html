@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- css -->
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/ws.js"></script>
+</head>
+<body id="page-top">
+
+    <div id="wrapper">
+        <button id="connect">Connect</button>
+        <button id="disconnect" disabled>Disconnect</button>
+        <div th:each="list : ${list}" class="student-container">
+            <div><span>학번:</span> <span class="student-id" th:text="${list.studentNum}"></span></div>
+            <div><span>이름:</span> <span class="student-name" th:text="${list.name}"></span></div>
+            <div><span>출결:</span> <span class="student-attendance" th:text="${list.attendance}"></span></div>
+        </div>
+        <hr>
+    </div>
+
+
+</body>
+</html>

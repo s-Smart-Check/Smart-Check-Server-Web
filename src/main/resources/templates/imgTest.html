@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="/webjars/jquery/jquery.min.js"></script>
+</head>
+<body>
+<form id="attendance-form">
+  <label for="stdId">학번:</label>
+  <input type="text" id="stdId" name="stdId">
+  <button type="submit">출석</button>
+</form>
+
+<script>
+  $(function() {
+    $("#attendance-form").on('submit', function(e) {
+      e.preventDefault();
+
+      var studentNum = $("#stdId").val();
+
+      $.ajax({
+        url: "/attendance",
+        type: "POST",
+        data: {stdId: studentNum},
+        success: function(response) {
+          console.log(response);
+          // 성공적으로 출석 처리되었을 때 추가 동작을 수행할 수 있습니다.
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+          // 출석 처리 중에 오류가 발생했을 때 처리할 내용을 여기에 작성합니다.
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
